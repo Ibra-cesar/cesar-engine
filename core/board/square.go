@@ -32,10 +32,13 @@ func StringToSquare(nota string) (Square, error) {
 		return Square{}, fmt.Errorf("Invalid Notation")
 	}
 
-	file := int(nota[0] + 'a')
-	rank := int(nota[1] + 1)
+	file := int(nota[0] - 'a')
+	rank := int(nota[1] - '1')
 
 	square := Square{File: file, Rank: rank}
+
+	fmt.Printf("file: %v, rank: %v\n", square.File, square.Rank)
+
 	if !square.IsValidSquare() {
 		return Square{}, fmt.Errorf("Invalid Square: %s", nota)
 	}

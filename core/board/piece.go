@@ -9,7 +9,7 @@ type Color int
 type PieceType int
 
 const (
-	White Color = iota + 1
+	White Color = iota 
 	Black
 	NoColor
 )
