@@ -135,3 +135,7 @@ func (b *Board) FindKing(color Color) (Square, bool) {
 	}
 	return Square{}, false
 }
+
+func (b *Board) isSquareEmpty(sq Square) bool {
+	return  b.GetPiece(sq).IsEmptyPiece()
+}
