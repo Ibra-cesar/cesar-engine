@@ -3,27 +3,16 @@ package main
 import (
 	"fmt"
 
+	parser "github.com/cesar-engine/core/Parser"
 	"github.com/cesar-engine/core/board"
 )
 
 func main() {
-	fmt.Println("\n3. Testing starting position setup:")
-	startingBoard := board.NewStartingBoard()
+	b := board.NewBoardEmptyBoard()
 
-	// Check a few key squares
-	testSquares := []string{"a1", "d1", "e1", "h1", "a8", "d8", "e8", "h8"}
-	for _, squareStr := range testSquares {
-		sq, err := board.StringToSquare(squareStr)
-		if err != nil {
-			fmt.Printf("ERROR: %s\n", err)
-		}
+	fmt.Println(b)
 
-		piece := startingBoard.GetPiece(sq)
-		fmt.Printf("%s: Type=%d, Color=%d, String=%s\n",
-			squareStr, piece.Type, piece.Color, piece.GetPieceInfo())
-	}
+	parser.ParseFEN("7k/3N2qp/b5r1/2p1Q1N1/Pp4PK/7P/1P3p2/6r1 b KQkq e3 0 1", b)
 
-	// Test 4: Print entire board
-	fmt.Println("\n4. Full board:")
-	fmt.Println(startingBoard)
+	fmt.Println(b)
 }

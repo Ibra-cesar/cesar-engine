@@ -13,7 +13,7 @@ type CastlingRight struct {
 }
 
 type Board struct {
-	squares       [8][8]Piece
+	Squares       [8][8]Piece
 	castle        CastlingRight
 	activeColor   Color
 	enPassant     *Square
@@ -23,7 +23,7 @@ type Board struct {
 
 func NewBoardEmptyBoard() *Board {
 	board := &Board{
-		squares:       [8][8]Piece{},
+		Squares:       [8][8]Piece{},
 		castle:        CastlingRight{true, true, true, true},
 		activeColor:   White,
 		enPassant:     nil,
@@ -33,7 +33,7 @@ func NewBoardEmptyBoard() *Board {
 
 	for rank := 0; rank < 8; rank++ {
 		for file := 0; file < 8; file++ {
-			board.squares[rank][file] = Piece{Type: Empty, Color: NoColor}
+			board.Squares[rank][file] = Piece{Type: Empty, Color: NoColor}
 		}
 	}
 
@@ -43,30 +43,30 @@ func NewBoardEmptyBoard() *Board {
 func NewStartingBoard() *Board {
 	newBoard := NewBoardEmptyBoard()
 
-	newBoard.squares[0][0] = NewPiece(Rook, White)
-	newBoard.squares[0][1] = NewPiece(Knight, White)
-	newBoard.squares[0][2] = NewPiece(Bishop, White)
-	newBoard.squares[0][3] = NewPiece(Queen, White)
-	newBoard.squares[0][4] = NewPiece(King, White)
-	newBoard.squares[0][5] = NewPiece(Bishop, White)
-	newBoard.squares[0][6] = NewPiece(Knight, White)
-	newBoard.squares[0][7] = NewPiece(Rook, White)
+	newBoard.Squares[0][0] = NewPiece(Rook, White)
+	newBoard.Squares[0][1] = NewPiece(Knight, White)
+	newBoard.Squares[0][2] = NewPiece(Bishop, White)
+	newBoard.Squares[0][3] = NewPiece(Queen, White)
+	newBoard.Squares[0][4] = NewPiece(King, White)
+	newBoard.Squares[0][5] = NewPiece(Bishop, White)
+	newBoard.Squares[0][6] = NewPiece(Knight, White)
+	newBoard.Squares[0][7] = NewPiece(Rook, White)
 
 	for file := 0; file < 8; file++ {
-		newBoard.squares[1][file] = NewPiece(Pawn, White)
+		newBoard.Squares[1][file] = NewPiece(Pawn, White)
 	}
 
-	newBoard.squares[7][0] = NewPiece(Rook, Black)
-	newBoard.squares[7][1] = NewPiece(Knight, Black)
-	newBoard.squares[7][2] = NewPiece(Bishop, Black)
-	newBoard.squares[7][3] = NewPiece(Queen, Black)
-	newBoard.squares[7][4] = NewPiece(King, Black)
-	newBoard.squares[7][5] = NewPiece(Bishop, Black)
-	newBoard.squares[7][6] = NewPiece(Knight, Black)
-	newBoard.squares[7][7] = NewPiece(Rook, Black)
+	newBoard.Squares[7][0] = NewPiece(Rook, Black)
+	newBoard.Squares[7][1] = NewPiece(Knight, Black)
+	newBoard.Squares[7][2] = NewPiece(Bishop, Black)
+	newBoard.Squares[7][3] = NewPiece(Queen, Black)
+	newBoard.Squares[7][4] = NewPiece(King, Black)
+	newBoard.Squares[7][5] = NewPiece(Bishop, Black)
+	newBoard.Squares[7][6] = NewPiece(Knight, Black)
+	newBoard.Squares[7][7] = NewPiece(Rook, Black)
 
 	for file := 0; file < 8; file++ {
-		newBoard.squares[6][file] = NewPiece(Pawn, Black)
+		newBoard.Squares[6][file] = NewPiece(Pawn, Black)
 	}
 
 	newBoard.castle = CastlingRight{true, true, true, true}
@@ -82,12 +82,12 @@ func (b *Board) GetPiece(square Square) Piece {
 	if !square.IsValidSquare() {
 		return Piece{Type: Empty, Color: NoColor}
 	}
-	return b.squares[square.Rank][square.File]
+	return b.Squares[square.Rank][square.File]
 }
 
 func (b *Board) SetPiece(square Square, piece Piece) {
 	if square.IsValidSquare() {
-		b.squares[square.Rank][square.File] = piece
+		b.Squares[square.Rank][square.File] = piece
 	}
 }
 
@@ -99,7 +99,7 @@ func (b *Board) String() string {
 	for rank := 7; rank >= 0; rank-- {
 		sb.WriteString(fmt.Sprintf("%d ", rank+1))
 		for file := 0; file < 8; file++ {
-			piece := b.squares[rank][file]
+			piece := b.Squares[rank][file]
 			sb.WriteString(piece.GetPieceInfo() + " ")
 		}
 		sb.WriteString("\n")
@@ -127,7 +127,7 @@ func (b *Board) String() string {
 func (b *Board) FindKing(color Color) (Square, bool) {
 	for rank := 0; rank < 8; rank++ {
 		for file := 0; file < 8; file++ {
-			piece := b.squares[rank][file]
+			piece := b.Squares[rank][file]
 			if piece.Type == King && piece.Color == color {
 				return NewSquare(rank, file), true
 			}
